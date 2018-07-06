@@ -16,9 +16,11 @@
 1. From another terminal window, perform API queries by connecting to `localhost:8000`, e.g.: `curl localhost:8000/space/1/count`
 
 ## API Documentation
+
+### Get Space Count
 `GET /space/<space_id>/count`
 
-Additional optional args:
+Optional args:
 * `ts`: timestamp to get the count for, in ISO-8601 format, e.g. `2018-05-01T08:46:00Z`
 
 Returns:
@@ -42,26 +44,28 @@ Querying for a space that does not exist:
 ```
 
 
-## TimeStampedModel
+## Database/Model notes
+
+### TimeStampedModel
 All models inherit from the Django Extensions `TimeStampedModel`. This adds a `created` and `modified` field automatically, as described [here](https://django-extensions.readthedocs.io/en/latest/model_extensions.html).
 
-## Row IDs
+### Row IDs
 All models use Django's default for row id, a simple auto-incremented id field, which are deterministic and easily guessable. Production systems may want to use a UUID field or something like a [Feistel cipher](https://wiki.postgresql.org/wiki/Pseudo_encrypt) to generate zero-collision pseudo-random ids.
 
 
 ## Considerations & Limitations
 
-#### Counting since "forever"
+### Counting since "forever"
 Computing a running count from all DPU sensor activity records can be (very) expensive, depending on the database and volume of records to count.
 
 One way to address the issue is to compute a running tally for a space periodically, then apply the DPU activity since that point. There might need to be a process that periodically "zeros" a room count, if the sensor's running count starts to drift, due to late reports or missing data from DPU relocation/offlining.
 
 
-#### Should the API return negative counts?
+### Should the API return negative counts?
 I don't have the insight into how the Space's are initialized to some value before the sensor starts counting. If the initial room count is not known, then it makes more sense that the API would report negative numbers (reporting the delta since it started tracking). If it would be nonsense that the API returns "there's -1 people currently in the space", then clamping to zero makes more sense.
 
 
-#### Performance/Scaling considerations
+### Performance/Scaling considerations
 Computing the running total with a simple SUM will likely become a huge performance bottleneck, even with indexing.
 
 The implementation specifics would vary depending on the business's tolerance for ignoring old data over a certain age or less granularity in the accuracy of older counts.
