@@ -64,6 +64,8 @@ One way to address the issue is to compute a running tally for a space periodica
 ### Should the API return negative counts?
 I don't have the insight into how the Space's are initialized to some value before the sensor starts counting. If the initial room count is not known, then it makes more sense that the API would report negative numbers (reporting the delta since it started tracking). If it would be nonsense that the API returns "there's -1 people currently in the space", then clamping to zero makes more sense.
 
+A concrete example uses the very first data point in the supplied CSV: someone leaves room B to enter room A; if we start our room counts at 0, then after the first transaction, room B now contains -1 people. We could assume that there was just one person in there, and return 0, but that's just a guess - there could be 10 people still hiding in there.
+
 
 ### Performance/Scaling considerations
 Computing the running total with a simple SUM will likely become a huge performance bottleneck, even with indexing.
