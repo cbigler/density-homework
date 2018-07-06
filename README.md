@@ -20,10 +20,10 @@
 ### Get Space Count
 `GET /space/<space_id>/count`
 
-Optional args:
+**Optional args:**
 * `ts`: timestamp to get the count for, in ISO-8601 format, e.g. `2018-05-01T08:46:00Z`
 
-Returns:
+**Returns:**
 
 Successful lookup returns space id, timestamp used in lookup, and count at that point in time.
 ```
@@ -50,7 +50,7 @@ Querying for a space that does not exist:
 All models inherit from the Django Extensions `TimeStampedModel`. This adds a `created` and `modified` field automatically, as described [here](https://django-extensions.readthedocs.io/en/latest/model_extensions.html).
 
 ### Row IDs
-All models use Django's default for row id, a simple auto-incremented id field, which are deterministic and easily guessable. Production systems may want to use a UUID field or something like a [Feistel cipher](https://wiki.postgresql.org/wiki/Pseudo_encrypt) to generate zero-collision pseudo-random ids.
+All models use Django's default for row id, a simple auto-incremented integer field, which are deterministic and easily guessable. Production systems may want to use a UUID field or something like a [Feistel cipher](https://wiki.postgresql.org/wiki/Pseudo_encrypt) to generate zero-collision pseudo-random ids.
 
 
 ## Considerations & Limitations
