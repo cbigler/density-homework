@@ -6,7 +6,7 @@ class Space_Activity(TimeStampedModel):
     """
     Model to represent activity reported by a DPU
     """
-    space = models.ForeignKey('density.Space', null=True, on_delete=models.CASCADE)
+    space = models.ForeignKey('density.Space', on_delete=models.CASCADE)
     count = models.IntegerField()
     activity_ts = models.DateTimeField()
 
