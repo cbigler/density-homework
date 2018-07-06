@@ -25,7 +25,9 @@ class Command(BaseCommand):
 
     def populate_static_data(self):
         spaceA = Space.objects.create(name='Space A')
+        print(f'SpaceA id = {spaceA.id}')
         spaceB = Space.objects.create(name='Space B')
+        print(f'SpaceB id = {spaceB.id}')
 
         doorwayX = Doorway.objects.create(name='Doorway X')
         doorwayZ = Doorway.objects.create(name='Doorway Z')
