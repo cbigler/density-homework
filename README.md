@@ -1,15 +1,19 @@
 # Notes and Things
 
 ## Frameworks and Libraries
+* Python 3.6+
 * Django 2.0 (2.0.7 used for development)
 * Latest Django Rest Framework (DRF) (3.8.2 used for development)
 
 ## Getting started
-1. Create a virtualenv to start clean
-2. Run `pip install -r requirements.txt`
-3. Run `./manage.py migrate`
-4. Run `./manage.py runserver`
-5. From another terminal window, perform API queries by connecting to `localhost:8000`, e.g.: `curl localhost:8000/space/1/count`
+1. Clone this repo into a folder and create a virtualenv to start clean
+1. Run `pip install -r requirements.txt`
+1. Run `./manage.py migrate` (this step creates the database and initializes the database tables)
+1. Run `./manage.py init_data`
+    * This step initializes the data configuration for the spaces, DPU, and assignments. It also loads the data from the CSV into the database.
+    * Take note of the Space ids that this step prints out, you will need them to query the Spaces by id.
+1. Run `./manage.py runserver`
+1. From another terminal window, perform API queries by connecting to `localhost:8000`, e.g.: `curl localhost:8000/space/1/count`
 
 ## API Documentation
 `GET /space/<space_id>/count`
