@@ -4,7 +4,7 @@ from django_extensions.db.models import TimeStampedModel
 
 class DPU(TimeStampedModel):
     """
-    Model to represent a tracked space
+    Represents a traffic tracking sensor
     """
     name = models.CharField(max_length=200, null=False, blank=False)
 

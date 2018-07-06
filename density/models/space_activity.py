@@ -4,7 +4,7 @@ from django_extensions.db.models import TimeStampedModel
 
 class Space_Activity(TimeStampedModel):
     """
-    Model to represent activity reported by a sensor
+    Model to represent activity reported by a DPU
     """
     space = models.ForeignKey('density.Space', null=True, on_delete=models.CASCADE)
     count = models.IntegerField()
